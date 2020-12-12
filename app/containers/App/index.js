@@ -7,22 +7,31 @@
  *
  */
 
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { Suspense } from 'react';
+import { Switch, Route, HashRouter } from 'react-router-dom';
 
-import HomePage from 'containers/HomePage/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import NotFoundPage from 'containers/NotFoundPage';
 
 import GlobalStyle from '../../global-styles';
+import routeData from './routeData';
 
 export default function App() {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-      <GlobalStyle />
-    </div>
+    <Suspense fallback={null}>
+      <HashRouter>
+        <Switch>
+          {routeData.map(route => (
+            <Route
+              key={route.id}
+              exact={route.exact}
+              path={route.path}
+              component={route.component}
+            />
+          ))}
+          <Route component={NotFoundPage} />
+        </Switch>
+        <GlobalStyle />
+      </HashRouter>
+    </Suspense>
   );
 }
