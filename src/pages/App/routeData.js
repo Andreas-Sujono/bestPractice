@@ -6,7 +6,7 @@ const data = [
     label: 'homepage',
     path: '/',
     exact: true,
-    component: lazy(() => import('containers/HomePage')),
+    component: lazy(() => import('pages/HomePage')),
   },
 ];
 
